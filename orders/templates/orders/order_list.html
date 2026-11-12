@@ -41,6 +41,23 @@
             font: inherit;
             cursor: pointer;
         }
+        .theme-toggle {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            gap: 7px;
+            min-height: 36px;
+            padding: 7px 10px;
+            border: 1px solid #dce2ec;
+            border-radius: 8px;
+            color: #34425e;
+            background: #fff;
+            font: inherit;
+            font-size: 13px;
+            cursor: pointer;
+        }
+        .theme-toggle:hover, .logout:hover { background: #f5f7fb; }
+        .theme-icon { font-size: 16px; line-height: 1; }
         main { width: min(1180px, calc(100% - 48px)); margin: 48px auto; }
         .page-heading { display: flex; align-items: end; justify-content: space-between; gap: 20px; margin-bottom: 24px; }
         h1 { margin: 0; font-size: clamp(26px, 4vw, 34px); letter-spacing: -.04em; }
@@ -86,6 +103,34 @@
         .view-link:hover { background: #f2f5fc; }
         .empty { padding: 64px 24px; color: #758197; text-align: center; }
         .empty strong { display: block; margin-bottom: 8px; color: #303d55; font-size: 17px; }
+        :root[data-theme="dark"] { color-scheme: dark; color: #e5eaf2; background: #111827; }
+        :root[data-theme="dark"] body { color: #e5eaf2; background: #111827; }
+        :root[data-theme="dark"] .topbar,
+        :root[data-theme="dark"] .table-wrap,
+        :root[data-theme="dark"] .logout,
+        :root[data-theme="dark"] .theme-toggle { border-color: #344155; color: #e5eaf2; background: #1b2535; }
+        :root[data-theme="dark"] .brand,
+        :root[data-theme="dark"] .order-id { color: #b8c8ff; }
+        :root[data-theme="dark"] .account,
+        :root[data-theme="dark"] .subtitle,
+        :root[data-theme="dark"] .count,
+        :root[data-theme="dark"] .empty { color: #a4afc1; }
+        :root[data-theme="dark"] h1,
+        :root[data-theme="dark"] .product-name,
+        :root[data-theme="dark"] .empty strong { color: #edf1f7; }
+        :root[data-theme="dark"] th { color: #b0bbcd; background: #202c3d; }
+        :root[data-theme="dark"] td { color: #c5cedb; border-color: #303c4e; }
+        :root[data-theme="dark"] tbody tr:hover { background: #202c3d; }
+        :root[data-theme="dark"] .status { color: #c5cedb; background: #303c4e; }
+        :root[data-theme="dark"] .status-pending { color: #f5d477; background: #493c23; }
+        :root[data-theme="dark"] .status-dispatched { color: #b5c8ff; background: #26385b; }
+        :root[data-theme="dark"] .status-delivered { color: #8fe0b3; background: #1e4035; }
+        :root[data-theme="dark"] .status-cancelled { color: #ffaaa5; background: #4a2b31; }
+        :root[data-theme="dark"] .view-link { color: #b8c8ff; border-color: #405176; }
+        :root[data-theme="dark"] .view-link:hover,
+        :root[data-theme="dark"] .theme-toggle:hover,
+        :root[data-theme="dark"] .logout:hover { background: #29364a; }
+        :root[data-theme="dark"] .theme-toggle:focus-visible { outline: 3px solid #8299e6; outline-offset: 2px; }
         @media (max-width: 650px) {
             .topbar { padding: 14px 20px; }
             .account { gap: 10px; }
@@ -99,6 +144,10 @@
     <header class="topbar">
         <div class="brand"><span class="brand-mark" aria-hidden="true">O</span> Order Desk</div>
         <div class="account">
+            <button class="theme-toggle" id="theme-toggle" type="button" aria-label="Switch to dark mode" title="Switch to dark mode" aria-pressed="false">
+                <span class="theme-icon" id="theme-icon" aria-hidden="true">☾</span>
+                <span id="theme-label">Dark mode</span>
+            </button>
             <span>{{ request.user.get_username }}</span>
             <form method="post" action="{% url 'logout' %}">
                 {% csrf_token %}
@@ -154,5 +203,39 @@
             </div>
         {% endif %}
     </main>
+    <script>
+        (() => {
+            const root = document.documentElement;
+            const themeButton = document.getElementById('theme-toggle');
+            const themeIcon = document.getElementById('theme-icon');
+            const themeLabel = document.getElementById('theme-label');
+
+            try {
+                const savedTheme = localStorage.getItem('order-desk-theme');
+                root.dataset.theme = savedTheme || (
+                    window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light'
+                );
+            } catch {
+                root.dataset.theme = 'light';
+            }
+
+            const updateThemeButton = () => {
+                const isDark = root.dataset.theme === 'dark';
+                const nextMode = isDark ? 'light' : 'dark';
+                themeIcon.textContent = isDark ? '☀' : '☾';
+                themeLabel.textContent = `${nextMode[0].toUpperCase()}${nextMode.slice(1)} mode`;
+                themeButton.setAttribute('aria-label', `Switch to ${nextMode} mode`);
+                themeButton.setAttribute('title', `Switch to ${nextMode} mode`);
+                themeButton.setAttribute('aria-pressed', String(isDark));
+            };
+
+            updateThemeButton();
+            themeButton.addEventListener('click', () => {
+                root.dataset.theme = root.dataset.theme === 'dark' ? 'light' : 'dark';
+                localStorage.setItem('order-desk-theme', root.dataset.theme);
+                updateThemeButton();
+            });
+        })();
+    </script>
 </body>
 </html>

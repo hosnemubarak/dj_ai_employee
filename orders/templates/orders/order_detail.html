@@ -41,6 +41,23 @@
             font: inherit;
             cursor: pointer;
         }
+        .theme-toggle {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            gap: 7px;
+            min-height: 36px;
+            padding: 7px 10px;
+            border: 1px solid #dce2ec;
+            border-radius: 8px;
+            color: #34425e;
+            background: #fff;
+            font: inherit;
+            font-size: 13px;
+            cursor: pointer;
+        }
+        .theme-toggle:hover, .logout:hover { background: #f5f7fb; }
+        .theme-icon { font-size: 16px; line-height: 1; }
         main { width: min(1180px, calc(100% - 48px)); margin: 44px auto; }
         .back-link { color: #405fba; font-size: 14px; font-weight: 650; text-decoration: none; }
         .back-link:hover { text-decoration: underline; }
@@ -93,6 +110,7 @@
             background: linear-gradient(90deg, #405fba, #8ca4ed);
         }
         .help-card-content { padding: 26px; }
+        .help-card-content[hidden], .chat-panel[hidden] { display: none; }
         .help-topline {
             display: flex;
             align-items: center;
@@ -150,9 +168,9 @@
             font: inherit;
             font-size: 14px;
             font-weight: 700;
-            cursor: not-allowed;
-            opacity: .78;
+            cursor: pointer;
         }
+        .help-button:hover { background: #334f9f; }
         .help-button-mark { font-size: 17px; line-height: 1; }
         .help-footnote { margin: 12px 0 0; color: #8792a5; font-size: 11px; text-align: center; }
         .order-reference {
@@ -161,6 +179,123 @@
             border-top: 1px solid #edf0f5;
             color: #778398;
             font-size: 12px;
+        }
+        .chat-panel { display: flex; min-height: 470px; flex-direction: column; }
+        .chat-header {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 12px;
+            padding: 20px 22px;
+            border-bottom: 1px solid #edf0f5;
+        }
+        .chat-agent { display: flex; align-items: center; gap: 11px; min-width: 0; }
+        .agent-avatar {
+            display: grid;
+            width: 40px;
+            height: 40px;
+            flex: 0 0 40px;
+            place-items: center;
+            border-radius: 12px;
+            color: #405fba;
+            background: #eaf0ff;
+            font-weight: 750;
+        }
+        .agent-title { margin: 0; color: #263248; font-size: 15px; font-weight: 700; }
+        .agent-presence { display: flex; align-items: center; gap: 6px; margin-top: 4px; color: #778398; font-size: 11px; }
+        .online-dot {
+            width: 8px;
+            height: 8px;
+            border-radius: 50%;
+            background: #22a06b;
+            box-shadow: 0 0 0 3px #e6f6ef;
+        }
+        .chat-close {
+            display: grid;
+            width: 34px;
+            height: 34px;
+            flex: 0 0 34px;
+            place-items: center;
+            border: 1px solid #e6eaf1;
+            border-radius: 9px;
+            color: #68748a;
+            background: #fff;
+            font: inherit;
+            font-size: 19px;
+            cursor: pointer;
+        }
+        .chat-close:hover { background: #f5f7fb; }
+        .chat-order { padding: 10px 20px; border-bottom: 1px solid #edf0f5; color: #778398; background: #fafbfe; font-size: 11px; }
+        .chat-messages {
+            display: flex;
+            min-height: 220px;
+            flex: 1;
+            flex-direction: column;
+            gap: 12px;
+            overflow-y: auto;
+            padding: 20px;
+            background: #fbfcfe;
+        }
+        .chat-bubble {
+            max-width: 88%;
+            padding: 11px 13px;
+            border: 1px solid #e7ebf2;
+            border-radius: 13px 13px 13px 4px;
+            color: #46536c;
+            background: #fff;
+            font-size: 13px;
+            line-height: 1.55;
+            overflow-wrap: anywhere;
+            white-space: pre-wrap;
+        }
+        .chat-bubble-user {
+            align-self: flex-end;
+            border-color: #405fba;
+            border-radius: 13px 13px 4px 13px;
+            color: #fff;
+            background: #405fba;
+        }
+        .chat-preview-note { margin: 0; padding: 9px 16px; color: #8792a5; background: #fbfcfe; font-size: 10px; text-align: center; }
+        .chat-form { display: flex; align-items: end; gap: 9px; padding: 14px; border-top: 1px solid #edf0f5; background: #fff; }
+        .chat-input {
+            width: 100%;
+            min-width: 0;
+            min-height: 42px;
+            max-height: 110px;
+            resize: vertical;
+            padding: 11px 12px;
+            border: 1px solid #dce2ec;
+            border-radius: 10px;
+            color: #303d55;
+            font: inherit;
+            font-size: 13px;
+        }
+        .chat-input:focus { border-color: #5876cb; outline: 3px solid rgb(88 118 203 / 14%); }
+        .chat-send {
+            display: grid;
+            width: 42px;
+            height: 42px;
+            flex: 0 0 42px;
+            place-items: center;
+            border: 0;
+            border-radius: 10px;
+            color: #fff;
+            background: #405fba;
+            font-size: 18px;
+            cursor: pointer;
+        }
+        .chat-send:hover { background: #334f9f; }
+        .chat-send:focus-visible, .chat-close:focus-visible, .help-button:focus-visible { outline: 3px solid #9db1f0; outline-offset: 2px; }
+        .sr-only {
+            position: absolute;
+            width: 1px;
+            height: 1px;
+            padding: 0;
+            margin: -1px;
+            overflow: hidden;
+            clip: rect(0, 0, 0, 0);
+            white-space: nowrap;
+            border: 0;
         }
         h2 { margin: 0 0 20px; font-size: 17px; letter-spacing: -.02em; }
         .details {
@@ -198,6 +333,65 @@
         .refund-status-denied { color: #b42318; background: #ffebe9; }
         .muted { color: #778398; font-size: 13px; }
         .empty-history { margin: 0; color: #778398; font-size: 14px; line-height: 1.6; }
+        :root[data-theme="dark"] { color-scheme: dark; color: #e5eaf2; background: #111827; }
+        :root[data-theme="dark"] body { color: #e5eaf2; background: #111827; }
+        :root[data-theme="dark"] .topbar,
+        :root[data-theme="dark"] .card,
+        :root[data-theme="dark"] .logout,
+        :root[data-theme="dark"] .theme-toggle,
+        :root[data-theme="dark"] .chat-close,
+        :root[data-theme="dark"] .chat-form,
+        :root[data-theme="dark"] .chat-input { border-color: #344155; color: #e5eaf2; background: #1b2535; }
+        :root[data-theme="dark"] .brand { color: #b8c8ff; }
+        :root[data-theme="dark"] .account,
+        :root[data-theme="dark"] .subtitle,
+        :root[data-theme="dark"] .label,
+        :root[data-theme="dark"] .muted,
+        :root[data-theme="dark"] .empty-history,
+        :root[data-theme="dark"] .help-copy,
+        :root[data-theme="dark"] .order-reference,
+        :root[data-theme="dark"] .agent-presence,
+        :root[data-theme="dark"] .chat-order,
+        :root[data-theme="dark"] .chat-preview-note { color: #a4afc1; }
+        :root[data-theme="dark"] h1,
+        :root[data-theme="dark"] h2,
+        :root[data-theme="dark"] .value,
+        :root[data-theme="dark"] .agent-title { color: #edf1f7; }
+        :root[data-theme="dark"] .back-link { color: #b8c8ff; }
+        :root[data-theme="dark"] .status { color: #c5cedb; background: #303c4e; }
+        :root[data-theme="dark"] .status-pending,
+        :root[data-theme="dark"] .refund-status { color: #f5d477; background: #493c23; }
+        :root[data-theme="dark"] .status-dispatched { color: #b5c8ff; background: #26385b; }
+        :root[data-theme="dark"] .status-delivered,
+        :root[data-theme="dark"] .refund-status-approved { color: #8fe0b3; background: #1e4035; }
+        :root[data-theme="dark"] .status-cancelled,
+        :root[data-theme="dark"] .refund-status-denied { color: #ffaaa5; background: #4a2b31; }
+        :root[data-theme="dark"] .help-card { border-color: #344155; background: #1b2535; }
+        :root[data-theme="dark"] .help-label { border-color: #3b4960; color: #becbf0; background: #253249; }
+        :root[data-theme="dark"] .help-icon,
+        :root[data-theme="dark"] .agent-avatar,
+        :root[data-theme="dark"] .help-topic-mark { color: #c0ceff; background: #2a3958; }
+        :root[data-theme="dark"] .help-topic { color: #c5cedb; }
+        :root[data-theme="dark"] .help-button,
+        :root[data-theme="dark"] .chat-send { color: #fff; background: #405fba; }
+        :root[data-theme="dark"] .help-button:hover,
+        :root[data-theme="dark"] .chat-send:hover { background: #506fca; }
+        :root[data-theme="dark"] .chat-header,
+        :root[data-theme="dark"] .chat-order,
+        :root[data-theme="dark"] .chat-form,
+        :root[data-theme="dark"] .refund-entry { border-color: #344155; }
+        :root[data-theme="dark"] .chat-order,
+        :root[data-theme="dark"] .chat-messages,
+        :root[data-theme="dark"] .chat-preview-note { background: #172131; }
+        :root[data-theme="dark"] .chat-close { border-color: #3b4960; color: #c5cedb; }
+        :root[data-theme="dark"] .chat-close:hover,
+        :root[data-theme="dark"] .theme-toggle:hover,
+        :root[data-theme="dark"] .logout:hover { background: #29364a; }
+        :root[data-theme="dark"] .chat-bubble { border-color: #344155; color: #d3dae5; background: #243044; }
+        :root[data-theme="dark"] .chat-bubble-user { border-color: #405fba; color: #fff; background: #405fba; }
+        :root[data-theme="dark"] .chat-input::placeholder { color: #8792a5; }
+        :root[data-theme="dark"] .order-reference { border-color: #344155; }
+        :root[data-theme="dark"] .theme-toggle:focus-visible { outline: 3px solid #8299e6; outline-offset: 2px; }
         @media (max-width: 760px) {
             .content-grid { grid-template-columns: minmax(0, 1fr); }
             .help-card { position: static; }
@@ -216,6 +410,10 @@
     <header class="topbar">
         <div class="brand"><span class="brand-mark" aria-hidden="true">O</span> Order Desk</div>
         <div class="account">
+            <button class="theme-toggle" id="theme-toggle" type="button" aria-label="Switch to dark mode" title="Switch to dark mode" aria-pressed="false">
+                <span class="theme-icon" id="theme-icon" aria-hidden="true">☾</span>
+                <span id="theme-label">Dark mode</span>
+            </button>
             <span>{{ request.user.get_username }}</span>
             <form method="post" action="{% url 'logout' %}">
                 {% csrf_token %}
@@ -301,7 +499,7 @@
 
             <aside class="card help-card" aria-labelledby="help-heading">
                 <div class="help-card-accent"></div>
-                <div class="help-card-content">
+                <div class="help-card-content" id="help-card-content">
                     <div class="help-topline">
                         <div class="help-icon" aria-hidden="true">?</div>
                         <span class="help-label">ORDER SUPPORT</span>
@@ -315,15 +513,112 @@
                         <div class="help-topic"><span class="help-topic-mark" aria-hidden="true">✓</span>Order status questions</div>
                         <div class="help-topic"><span class="help-topic-mark" aria-hidden="true">✓</span>Refund request history</div>
                     </div>
-                    <button class="help-button" type="button" disabled aria-describedby="help-coming-soon">
+                    <button class="help-button" id="open-chat" type="button" aria-controls="chat-panel">
                         <span class="help-button-mark" aria-hidden="true">✦</span>
-                        Chat with Order Desk
+                        Chat with Agent Support
                     </button>
-                    <p class="help-footnote" id="help-coming-soon">Chat support is coming soon</p>
+                    <p class="help-footnote">Chat preview</p>
                     <div class="order-reference">Order reference <strong>#{{ order.pk }}</strong></div>
                 </div>
+                <section class="chat-panel" id="chat-panel" aria-label="Agent Support chat" hidden>
+                    <header class="chat-header">
+                        <div class="chat-agent">
+                            <span class="agent-avatar" aria-hidden="true">A</span>
+                            <div>
+                                <h2 class="agent-title">Agent Support</h2>
+                                <div class="agent-presence"><span class="online-dot" aria-hidden="true"></span>Preview mode</div>
+                            </div>
+                        </div>
+                        <button class="chat-close" id="close-chat" type="button" aria-label="Close chat">&times;</button>
+                    </header>
+                    <div class="chat-order">You’re chatting about order <strong>#{{ order.pk }}</strong></div>
+                    <div class="chat-messages" id="chat-messages" role="log" aria-live="polite" aria-relevant="additions">
+                        <div class="chat-bubble">Hi {{ request.user.get_username }}! How can I help with your order?</div>
+                    </div>
+                    <p class="chat-preview-note">Preview only — messages are not sent to an agent yet.</p>
+                    <form class="chat-form" id="chat-form">
+                        <label class="sr-only" for="chat-input">Your message</label>
+                        <textarea class="chat-input" id="chat-input" name="message" rows="1" placeholder="Write a message..." maxlength="2000" required></textarea>
+                        <button class="chat-send" type="submit" aria-label="Send message">&#10148;</button>
+                    </form>
+                </section>
             </aside>
         </div>
     </main>
+    <script>
+        (() => {
+            const root = document.documentElement;
+            const themeButton = document.getElementById('theme-toggle');
+            const themeIcon = document.getElementById('theme-icon');
+            const themeLabel = document.getElementById('theme-label');
+
+            try {
+                const savedTheme = localStorage.getItem('order-desk-theme');
+                root.dataset.theme = savedTheme || (
+                    window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light'
+                );
+            } catch {
+                root.dataset.theme = 'light';
+            }
+
+            const updateThemeButton = () => {
+                const isDark = root.dataset.theme === 'dark';
+                const nextMode = isDark ? 'light' : 'dark';
+                themeIcon.textContent = isDark ? '☀' : '☾';
+                themeLabel.textContent = `${nextMode[0].toUpperCase()}${nextMode.slice(1)} mode`;
+                themeButton.setAttribute('aria-label', `Switch to ${nextMode} mode`);
+                themeButton.setAttribute('title', `Switch to ${nextMode} mode`);
+                themeButton.setAttribute('aria-pressed', String(isDark));
+            };
+
+            updateThemeButton();
+            themeButton.addEventListener('click', () => {
+                root.dataset.theme = root.dataset.theme === 'dark' ? 'light' : 'dark';
+                localStorage.setItem('order-desk-theme', root.dataset.theme);
+                updateThemeButton();
+            });
+
+            const helpCard = document.getElementById('help-card-content');
+            const chatPanel = document.getElementById('chat-panel');
+            const openButton = document.getElementById('open-chat');
+            const closeButton = document.getElementById('close-chat');
+            const chatForm = document.getElementById('chat-form');
+            const chatInput = document.getElementById('chat-input');
+            const chatMessages = document.getElementById('chat-messages');
+
+            openButton.addEventListener('click', () => {
+                helpCard.hidden = true;
+                chatPanel.hidden = false;
+                chatInput.focus();
+            });
+
+            closeButton.addEventListener('click', () => {
+                chatPanel.hidden = true;
+                helpCard.hidden = false;
+                openButton.focus();
+            });
+
+            chatInput.addEventListener('keydown', (event) => {
+                if (event.key === 'Enter' && !event.shiftKey) {
+                    event.preventDefault();
+                    chatForm.requestSubmit();
+                }
+            });
+
+            chatForm.addEventListener('submit', (event) => {
+                event.preventDefault();
+                const message = chatInput.value.trim();
+                if (!message) return;
+
+                const bubble = document.createElement('div');
+                bubble.className = 'chat-bubble chat-bubble-user';
+                bubble.textContent = message;
+                chatMessages.appendChild(bubble);
+                chatInput.value = '';
+                chatMessages.scrollTop = chatMessages.scrollHeight;
+                chatInput.focus();
+            });
+        })();
+    </script>
 </body>
 </html>

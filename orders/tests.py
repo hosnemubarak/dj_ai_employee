@@ -64,6 +64,8 @@ class OrderListViewTests(TestCase):
             response,
             reverse('order_detail', args=(self.customer_order.pk,)),
         )
+        self.assertContains(response, 'id="theme-toggle"')
+        self.assertContains(response, 'Switch to dark mode')
 
     def test_customer_can_view_their_order_details(self):
         self.client.force_login(self.customer)
@@ -77,6 +79,10 @@ class OrderListViewTests(TestCase):
         self.assertContains(response, 'Customer item')
         self.assertContains(response, 'Refund history')
         self.assertContains(response, 'There are no refund requests')
+        self.assertContains(response, 'Chat with Agent Support')
+        self.assertContains(response, 'Agent Support')
+        self.assertContains(response, 'Preview only')
+        self.assertContains(response, 'id="theme-toggle"')
 
     def test_order_details_show_refund_history(self):
         refund = RefundRequest.objects.create(
